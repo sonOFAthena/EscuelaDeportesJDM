@@ -15,6 +15,10 @@ public class Categoria
         this.deporteIdDep = deporteIdDep;
     }
 
+    public Categoria() {
+        
+    }
+
     public String getIdCat() {
         return idCat;
     }
