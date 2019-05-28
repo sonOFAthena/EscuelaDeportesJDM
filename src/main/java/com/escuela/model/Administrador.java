@@ -7,7 +7,11 @@ public class Administrador {
     public String apellidoAd;
     public String correo;
     public String contraseñaAd;
-
+    
+    public Administrador() {
+        
+    }
+     
     public Administrador(String idAd, String nombreAd, String apellidoAd, String correo, String contraseñaAd) {
         this.idAd = idAd;
         this.nombreAd = nombreAd;

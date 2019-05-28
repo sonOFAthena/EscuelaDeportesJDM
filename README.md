@@ -13,3 +13,8 @@ GET 	/device-management/devices/{id} : Get the device information identified by 
 PUT 	/device-management/devices/{id} : Update the device information identified by "id"
 
 DELETE	/device-management/devices/{id} : Delete device by "id"
+
+
+SERVER: GLASSFISH5
+IDE: NetBeans IDE 8.2 (Build 201609300101)
+DATABASE: ORACLE 11g

@@ -31,7 +31,7 @@ public class CategoriaService {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response selectCategoria(@PathParam("id") String id)
+    public Response getCategoria(@PathParam("id") String id)
     {
         CategoriaDao catDao = new CategoriaDao();
         

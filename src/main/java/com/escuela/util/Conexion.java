@@ -15,13 +15,14 @@ public class Conexion
         
         try
         {
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/webpub", "root", "toor");
+            Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "EscuelaDeportes", "ADMIN123");
             
         } 
         catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException ex) 
         {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Conection failed");
         }
         return con;
     }

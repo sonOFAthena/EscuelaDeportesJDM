@@ -1,22 +1,29 @@
 
 package com.escuela.services;
 
-import com.escuela.dao.CategoriaDao;
-import com.escuela.model.Categoria;
+import com.escuela.dao.AdministradorDao;
+import com.escuela.model.Administrador;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("administradores")
-public class AdministradorService {
-    
+public class AdministradorService{
+ 
+    /**
+     *
+     * @return
+     */
     @GET
-    @Produces(MediaType.TEXT_HTML)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getAdministradores()
-    {
-        return Response.ok().build();
+    { 
+        AdministradorDao admindao = new AdministradorDao();
+        List<Administrador> administradores = admindao.getAdministradores();
+        return Response.ok(administradores).build();
     }
 }
