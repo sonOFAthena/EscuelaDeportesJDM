@@ -42,15 +42,17 @@ public class CategoriaDao {
             con = Conexion.getConexion();
             
             //2. Generar consulta
-            PreparedStatement sql = con.prepareStatement("SELECT * FROM APP.CATEGORIA");
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM CATEGORIA");
             rs = sql.executeQuery();
             
             //3. Procesar informacion
             while(rs.next())
             {
                 Categoria categ = new Categoria();
-                categ.setIdCat(rs.getString("ID"));
-                categ.setDescripcionCat(rs.getString("DESCRIPCION"));
+                categ.setIdCat(rs.getString("ID_CAT"));
+                categ.setTipoCat(rs.getString("TIPO_CAT"));
+                categ.setDescripcionCat(rs.getString("DESCRIPCION_CAT"));
+                categ.setDeporteIdDep(rs.getString("DEPORTE_ID_DEP"));
                 
                 categoriaArray.add(categ);
             }
@@ -76,7 +78,7 @@ public class CategoriaDao {
         try 
         {
             con = Conexion.getConexion();
-            PreparedStatement sql = con.prepareStatement("SELECT * FROM APP.categoria E WHERE E.id = ? ");
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM CATEGORIA E WHERE E.ID_CAT = ? ");
             sql.setString(1, cat.getIdCat());
             
             rs = sql.executeQuery();
@@ -84,10 +86,10 @@ public class CategoriaDao {
             if (rs.next()) 
             {
                 //nombres en la base de datos ID   DESCRIPCION
-                catReturn.setIdCat(rs.getString("ID"));
-                catReturn.setTipoCat(rs.getString("tipoCat"));
-                catReturn.setDescripcionCat(rs.getString("DESCRIPCION"));   
-                catReturn.setDeporteIdDep(rs.getString("deporteIdDep"));
+                catReturn.setIdCat(rs.getString("ID_CAT"));
+                catReturn.setTipoCat(rs.getString("TIPO_CAT"));
+                catReturn.setDescripcionCat(rs.getString("DESCRIPCION_CAT"));
+                catReturn.setDeporteIdDep(rs.getString("DEPORTE_ID_DEP"));
             }
         }
         catch (SQLException ex) 
@@ -111,7 +113,7 @@ public class CategoriaDao {
         {
             con = Conexion.getConexion();
             
-            PreparedStatement sql = con.prepareStatement("INSERT INTO APP.CATEGORIA VALUES(?,?,?,?)");
+            PreparedStatement sql = con.prepareStatement("INSERT INTO CATEGORIA VALUES(?,?,?,?)");
             
             sql.setString(1,cat.getIdCat());
             sql.setString(2,cat.getTipoCat());
@@ -130,7 +132,7 @@ public class CategoriaDao {
             Conexion.cerrarConexion(con);
         }
         
-        if (correcto == -1) {
+        if (correcto != 0) {
             saved = true;
         } 
         
@@ -150,10 +152,10 @@ public class CategoriaDao {
             PreparedStatement insertPaquete;
             
             // Create the preparedstatement(s) to insert
-            insertPaquete = con.prepareStatement("DELETE FROM APP.CATEGORIA WHERE id = ?");
-
+            insertPaquete = con.prepareStatement("DELETE FROM CATEGORIA WHERE ID_CAT = ?");
             insertPaquete.setString(1, cat.getIdCat());
             correcto = insertPaquete.executeUpdate();
+            
             categoriaArray.remove(cat);
             
         }
@@ -167,7 +169,7 @@ public class CategoriaDao {
             Conexion.cerrarConexion(con);
         }
         
-        if (correcto == -1) {
+        if (correcto != 0) {
             deleted = true;
         } 
         
@@ -190,13 +192,13 @@ public class CategoriaDao {
             PreparedStatement sql;
             
             // Create the preparedstatement(s) to insert
-            sql = con.prepareStatement("UPDATE  APP.categoria SET "
-                    + "descripcion = ?  WHERE id = ?");
+            sql = con.prepareStatement("UPDATE CATEGORIA SET  TIPO_CAT = ?, DESCRIPCION_CAT = ?, DEPORTE_ID_DEP = ?"
+                                       + "WHERE ID_CAT = ?");
 
-            sql.setString(1,cat.getIdCat());
-            sql.setString(2,cat.getTipoCat());
-            sql.setString(3,cat.getDescripcionCat());
-            sql.setString(4,cat.getDeporteIdDep());
+            sql.setString(4,cat.getIdCat());
+            sql.setString(1,cat.getTipoCat());
+            sql.setString(2,cat.getDescripcionCat());
+            sql.setString(3,cat.getDeporteIdDep());
             correcto = sql.executeUpdate();
             
             //System.out.println("\n\nempleado con doc: " + empleado.getDocumento() + " updated from database...\n\n");
@@ -211,11 +213,26 @@ public class CategoriaDao {
             Conexion.cerrarConexion(con);
         }
         
-        if (correcto == -1) {
+        if (correcto != 0) {
             updated = true;
         } 
 
         return updated;
+    }
+    
+    public void print2(List<Categoria> list) 
+    {
+        System.out.println("list size:" + list.size());
+        
+        for (int i = 0; i < list.size(); i++) 
+        {
+            System.out.printf("%-15s",list.get(i).getIdCat());
+            System.out.printf("%-15s",list.get(i).getTipoCat());
+            System.out.printf("%-15s",list.get(i).getDescripcionCat());
+            System.out.printf("%-15s",list.get(i).getDeporteIdDep());
+            
+            System.out.println("");
+        }
     }
 
 }

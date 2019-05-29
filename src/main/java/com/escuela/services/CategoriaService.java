@@ -17,14 +17,15 @@ import javax.ws.rs.core.Response;
 
 @Path("categorias")
 public class CategoriaService {
-    
-    CategoriaDao catdao = new CategoriaDao();
-    List<Categoria> categorias = catdao.getCategorias();
+
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCategorias()
-    {
+    {       
+        CategoriaDao catdao = new CategoriaDao();
+        List<Categoria> categorias = catdao.getCategorias();
+        
         return Response.ok(categorias).build();
     }
     
@@ -43,7 +44,8 @@ public class CategoriaService {
         Categoria catRetorno = catDao.consultarCategoriaId(catConsulta);
 
        // return "Id: " + catRetorno.getId() + "\nDescripcion: " + catRetorno.getDescripcion();
-        if (!catRetorno.idCat.isEmpty()) {
+        if (catRetorno.getIdCat() != null) 
+        {
             return Response.ok(catRetorno).build();
         }
         else{
@@ -54,19 +56,11 @@ public class CategoriaService {
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_HTML)
-    public Response createCategoria(@PathParam("tipoCat") String tipoCat,
-                                    @PathParam("descripcionCat") String descripcionCat,
-                                    @PathParam("deporteIdDep") String deporteIdDep)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createCategoria(Categoria cat)
     {
         boolean saved = false;
         CategoriaDao catDao = new CategoriaDao();
-        Categoria cat = new Categoria();
-        
-        cat.setIdCat(catDao.generateId());
-        cat.setTipoCat(tipoCat);
-        cat.setDescripcionCat(descripcionCat);
-        cat.setDeporteIdDep(deporteIdDep);
 
         //guardar la informacion del formulario en la BD
         saved = catDao.guardarCategoria(cat);
@@ -77,7 +71,7 @@ public class CategoriaService {
         else{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-    }
+    } 
     
     @DELETE
     @Path("/{id}")
@@ -98,7 +92,7 @@ public class CategoriaService {
         deleted = catDao.borrarCategoria(catRetorno);
         
         if (deleted) {
-            return Response.status(Response.Status.OK).entity(catConsulta).build();
+            return Response.status(Response.Status.OK).entity(catRetorno).build();
         }
         else{
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -106,22 +100,13 @@ public class CategoriaService {
     }
     
     @PUT
-    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_HTML)
-    public Response updateCategoria(@PathParam("tipoCat") String tipoCat,
-                                    @PathParam("descripcionCat") String descripcionCat,
-                                    @PathParam("deporteIdDep") String deporteIdDep)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateCategoria(Categoria cat)
     {
         
         boolean updated = false;
         CategoriaDao catDao = new CategoriaDao();
-        Categoria cat = new Categoria();
-        
-        cat.setIdCat(catDao.generateId());
-        cat.setTipoCat(tipoCat);
-        cat.setDescripcionCat(descripcionCat);
-        cat.setDeporteIdDep(deporteIdDep);
 
         //guardar la informacion del formulario en la BD
         updated = catDao.actualizarCategoria(cat);
