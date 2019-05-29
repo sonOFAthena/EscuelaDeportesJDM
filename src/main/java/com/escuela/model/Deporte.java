@@ -15,6 +15,10 @@ public class Deporte {
         this.estadoDep = estadoDep;
     }
 
+    public Deporte() {
+        
+    }
+
     public String getIdDep() {
         return idDep;
     }

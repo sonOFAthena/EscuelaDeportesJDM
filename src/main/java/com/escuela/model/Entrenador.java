@@ -18,6 +18,10 @@ public class Entrenador {
         this.contraseñaEnt = contraseñaEnt;
     }
 
+    public Entrenador() {
+        
+    }
+
     public String getIdEnt() {
         return idEnt;
     }

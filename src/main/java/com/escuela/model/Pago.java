@@ -16,6 +16,10 @@ public class Pago {
         this.estadoPago = estadoPago;
     }
 
+    public Pago() {
+       
+    }
+
     public String getIdPago() {
         return idPago;
     }
