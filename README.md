@@ -15,6 +15,10 @@ PUT 	/device-management/devices/{id} : Update the device information identified 
 DELETE	/device-management/devices/{id} : Delete device by "id"
 
 
+
+
 SERVER: GLASSFISH5
+
 IDE: NetBeans IDE 8.2 (Build 201609300101)
+
 DATABASE: ORACLE 11g
