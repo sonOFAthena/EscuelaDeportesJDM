@@ -23,6 +23,10 @@ public class Objetivo {
         this.entrenadorIdEnt = entrenadorIdEnt;
     }
 
+    public Objetivo() {
+        
+    }
+
     public String getIdOb() {
         return idOb;
     }

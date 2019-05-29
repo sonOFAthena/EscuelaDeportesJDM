@@ -18,6 +18,10 @@ public class Clase {
         this.entrenadorIdEnt = entrenadorIdEnt;
     }
 
+    public Clase() {
+        
+    }
+
     public String getIdClas() {
         return idClas;
     }

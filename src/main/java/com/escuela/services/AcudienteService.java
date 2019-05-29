@@ -1,8 +1,8 @@
 
 package com.escuela.services;
 
-import com.escuela.dao.CategoriaDao;
-import com.escuela.model.Categoria;
+import com.escuela.dao.AcudienteDao;
+import com.escuela.model.Acudiente;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,9 +14,12 @@ import javax.ws.rs.core.Response;
 public class AcudienteService {
     
     @GET
-    @Produces(MediaType.TEXT_HTML)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getAcudientes()
     {
-        return Response.ok().build();
+        AcudienteDao acudao = new AcudienteDao();
+        List<Acudiente> acudientes = acudao.getAcudientes();
+        
+        return Response.ok(acudientes).build();
     }
 }

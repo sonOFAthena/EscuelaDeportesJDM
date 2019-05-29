@@ -2,7 +2,9 @@
 package com.escuela.services;
 
 import com.escuela.dao.CategoriaDao;
+import com.escuela.dao.ClaseDao;
 import com.escuela.model.Categoria;
+import com.escuela.model.Clase;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,9 +16,12 @@ import javax.ws.rs.core.Response;
 public class ClaseService {
     
     @GET
-    @Produces(MediaType.TEXT_HTML)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getClases()
     {
-        return Response.ok().build();
+        ClaseDao clasdao = new ClaseDao();
+        List<Clase> clases = clasdao.getClases();
+        
+        return Response.ok(clases).build();
     }
 }

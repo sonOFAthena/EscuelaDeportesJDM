@@ -24,6 +24,10 @@ public class Acudiente {
         this.pagoIdpago = pagoIdpago;
     }
 
+    public Acudiente() {
+        
+    }
+
     public String getIdAc() {
         return idAc;
     }

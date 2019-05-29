@@ -2,7 +2,9 @@
 package com.escuela.services;
 
 import com.escuela.dao.CategoriaDao;
+import com.escuela.dao.ObjetivoDao;
 import com.escuela.model.Categoria;
+import com.escuela.model.Objetivo;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,9 +16,12 @@ import javax.ws.rs.core.Response;
 public class ObjetivoService {
     
     @GET
-    @Produces(MediaType.TEXT_HTML)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getObjetivos()
     {
-        return Response.ok().build();
+        ObjetivoDao objdao = new ObjetivoDao();
+        List<Objetivo> objetivos = objdao.getObjetivos();
+        
+        return Response.ok(objetivos).build();
     }
 }

@@ -166,27 +166,28 @@ INSERT INTO pago (id_pago, pago_total, fecha_factu, fecha_limite, estado_pago)
 --TABLA acudiente
 
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6001', 'MARIA', 'JIMENEZ SANCHEZ', 'F', 'GRADUADO', 'MARIA_JIMENEZ82123@ELPOLI.EDU.CO', '12345','5001','1136726930');
+VALUES ( '6001', 'MARIA', 'JIMENEZ SANCHEZ', 'F', 'GRADUADO', 'MARIA_JIMENEZ82123@ELPOLI.EDU.CO', '12345','5001','1136726930');
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6002', 'CRISTINA', 'AGUDELO SANCHEZ', 'F', 'PARTICULAR', 'CRISTINAAG@GMAIL.COM', '12345','5001','1036336930');
+VALUES ( '6002', 'CRISTINA', 'AGUDELO SANCHEZ', 'F', 'PARTICULAR', 'CRISTINAAG@GMAIL.COM', '12345','5001','1036336930');
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6003', 'SARA CAMIALA', 'MONTERO SANCHEZ', 'F', 'EMPLEADO', 'SARA_MONTERO@ELPOLI.EDU.CO', '12345','5003','1022226930');
+VALUES ( '6003', 'SARA CAMIALA', 'MONTERO SANCHEZ', 'F', 'EMPLEADO', 'SARA_MONTERO@ELPOLI.EDU.CO', '12345','5003','1022226930');
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6004', 'MARLON', 'JIMENEZ RIVAS', 'M', 'GRADUADO', 'MARLON_JIMENEZ82123@ELPOLI.EDU.CO', '12345','5003','1036722230');
+VALUES ( '6004', 'MARLON', 'JIMENEZ RIVAS', 'M', 'GRADUADO', 'MARLON_JIMENEZ82123@ELPOLI.EDU.CO', '12345','5003','1036722230');
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6005', 'EDUARDO', 'MARIN MARIN', 'M', 'PARTICULAR', 'EDUARDOMARIN@GMAIL.COM', '12345','5002','1236726930');
+VALUES ( '6005', 'EDUARDO', 'MARIN MARIN', 'M', 'PARTICULAR', 'EDUARDOMARIN@GMAIL.COM', '12345','5002','1236726930');
 
 
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6006', 'NICOL', 'PEREZ PEREZ', 'F', 'EMPLEADO', 'NICOL_PEREZ@ELPOLI.EDU.CO', '12345','5001','1036726870');
+VALUES ( '6006', 'NICOL', 'PEREZ PEREZ', 'F', 'EMPLEADO', 'NICOL_PEREZ@ELPOLI.EDU.CO', '12345','5001','1036726870');
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6007', 'BRUNO', 'ALZATE OSSA', 'M', 'GRADUADO', 'BRUNO_ALZATE82123@ELPOLI.EDU.CO', '12345','5001','1036336930');
+VALUES ( '6007', 'BRUNO', 'ALZATE OSSA', 'M', 'GRADUADO', 'BRUNO_ALZATE82123@ELPOLI.EDU.CO', '12345','5001','1036336930');
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6008', 'GAEL', 'TAMAYO ', 'M', 'PARTICULAR', 'GTAMAYO@GMAIL.COM', '12345','5003','1022226930');
+VALUES ( '6008', 'GAEL', 'TAMAYO ', 'M', 'PARTICULAR', 'GTAMAYO@GMAIL.COM', '12345','5003','1022226930');
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6009', 'LUCAS', 'RIVERA', 'M', 'EMPLEADO', 'LUCAS_RIVERA@ELPOLI.EDU.CO', '12345','5003','1036722230');
+VALUES ( '6009', 'LUCAS', 'RIVERA', 'M', 'EMPLEADO', 'LUCAS_RIVERA@ELPOLI.EDU.CO', '12345','5003','1036722230');
 INSERT INTO acudiente (id_ac, nombre_ac, apellido_ac, genero_ac, rol_ac, correo_ac, contrasena_ac, pago_id_pago, estudiante_id_est)
-			  VALUES ( '6010', 'LEO', 'JIMENEZ ', 'M', 'GRADUADO', 'LEO_JIMENEZ82123@ELPOLI.EDU.CO', '12345','5002','1236726930');
+VALUES ( '6010', 'LEO', 'JIMENEZ ', 'M', 'GRADUADO', 'LEO_JIMENEZ82123@ELPOLI.EDU.CO', '12345','5002','1236726930');
+
 
 
 

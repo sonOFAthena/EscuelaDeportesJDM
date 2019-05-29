@@ -2,7 +2,9 @@
 package com.escuela.services;
 
 import com.escuela.dao.CategoriaDao;
+import com.escuela.dao.EstudianteDao;
 import com.escuela.model.Categoria;
+import com.escuela.model.Estudiante;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,9 +16,12 @@ import javax.ws.rs.core.Response;
 public class EstudianteService {
     
     @GET
-    @Produces(MediaType.TEXT_HTML)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEstudiantes()
     {
-        return Response.ok().build();
+        EstudianteDao estdao = new EstudianteDao();
+        List<Estudiante> estudiantes = estdao.getEstudiantes();
+        
+        return Response.ok(estudiantes).build();
     }
 }

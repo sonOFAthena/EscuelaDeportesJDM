@@ -20,6 +20,10 @@ public class Estudiante {
         this.claseIdClas = claseIdClas;
     }
 
+    public Estudiante() {
+        
+    }
+
     public String getIdEst() {
         return idEst;
     }
