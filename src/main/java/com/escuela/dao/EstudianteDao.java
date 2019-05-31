@@ -81,5 +81,78 @@ public class EstudianteDao {
         
         return estudiantesArray;
     }
+
+    public Estudiante consultarEstudianteId(Estudiante est) 
+    {
+        Estudiante estReturn = new Estudiante();
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM ESTUDIANTE E WHERE E.ID_EST = ? ");
+            sql.setString(1, est.getIdEst());
+            
+            rs = sql.executeQuery();
+            
+            if (rs.next()) 
+            {
+                estReturn.setIdEst(rs.getString("ID_EST"));
+                estReturn.setNombreEst(rs.getString("NOMBRE_EST"));
+                estReturn.setApellidoEst(rs.getString("APELLIDO_EST"));
+                estReturn.setGeneroEst(rs.getString("GENERO_EST"));
+                estReturn.setFechaNacimientoEst(rs.getString("FECHA_NACIMIENTO_EST"));
+                estReturn.setEstadoEst(rs.getString("ESTADO_EST"));
+                estReturn.setClaseIdClas(rs.getString("CLASE_ID_C"));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        return estReturn;
+    }
+
+    public boolean guardarEstudiante(Estudiante est) 
+    {
+        int correcto= -1;
+        boolean saved=false;
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement sql = con.prepareStatement("INSERT INTO ESTUDIANTE VALUES(?,?,?,?,TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'),?,?)");
+            
+            sql.setString(1,est.getIdEst());
+            sql.setString(2,est.getNombreEst());
+            sql.setString(3,est.getApellidoEst());
+            sql.setString(4,est.getGeneroEst());
+            sql.setString(5,est.getFechaNacimientoEst());
+            sql.setString(6,est.getEstadoEst());
+            sql.setString(7,est.getClaseIdClas());
+            
+            correcto = sql.executeUpdate();
+            
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            saved = true;
+        } 
+        
+        return saved;
+    }
     
 }
