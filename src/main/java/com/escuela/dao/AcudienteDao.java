@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 public class AcudienteDao 
@@ -79,4 +84,83 @@ public class AcudienteDao
         return acudienteArray;
     }
     
+    public Acudiente consultarAcudienteId(Acudiente acu) 
+    {
+        Acudiente acuReturn = new Acudiente();
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM ACUDIENTE E WHERE E.ID_AC = ? ");
+            sql.setString(1, acu.getIdAc());
+            
+            rs = sql.executeQuery();
+            
+            if (rs.next()) 
+            {
+                //nombres en la base de datos ID   DESCRIPCION
+                acuReturn.setIdAc(rs.getString("ID_AC"));
+                acuReturn.setNombreAc(rs.getString("NOMBRE_AC"));
+                acuReturn.setApellidoAc(rs.getString("APELLIDO_AC"));
+                acuReturn.setGeneroAc(rs.getString("GENERO_AC"));
+                acuReturn.setRolUniAc(rs.getString("ROL_AC"));
+                acuReturn.setCorreo(rs.getString("CORREO_AC"));
+                acuReturn.setContraseña(rs.getString("CONTRASENA_AC"));
+                acuReturn.setPagoIdpago(rs.getString("PAGO_ID_PAGO"));
+                acuReturn.setEstudianteIdEst(rs.getString("ESTUDIANTE_ID_EST"));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        return acuReturn;
+    }
+    
+    public boolean guardarAcudiente(Acudiente acu)
+    {
+        
+        int correcto= -1;
+        boolean saved=false;
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement sql = con.prepareStatement("INSERT INTO ACUDIENTE VALUES(?,?,?,?,?,?,?,?,?)");
+            
+            sql.setString(1,acu.getIdAc());
+            sql.setString(2,acu.getNombreAc());
+            sql.setString(3,acu.getApellidoAc());
+            sql.setString(4,acu.getGeneroAc());
+            sql.setString(5,acu.getRolUniAc());
+            sql.setString(6,acu.getCorreo());
+            sql.setString(7,acu.getContraseña());
+            sql.setString(8,acu.getPagoIdpago());
+            sql.setString(9,acu.getEstudianteIdEst());
+            
+            correcto = sql.executeUpdate();
+            
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            saved = true;
+        } 
+        
+        return saved;
+        
+    }
 }
