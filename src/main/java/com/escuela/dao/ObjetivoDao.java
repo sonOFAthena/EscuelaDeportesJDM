@@ -1,6 +1,7 @@
 
 package com.escuela.dao;
 
+import com.escuela.model.Categoria;
 import com.escuela.model.Estudiante;
 import com.escuela.model.Objetivo;
 import com.escuela.util.Conexion;
@@ -75,4 +76,42 @@ public class ObjetivoDao {
         
         return objetivoArray;
     }
+    
+    public Objetivo consultarObjetivoId(Objetivo obj) 
+    {
+        Objetivo objReturn = new Objetivo();
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM OBJETIVO E WHERE E.ID_OB = ? ");
+            sql.setString(1, obj.getIdOb());
+            
+            rs = sql.executeQuery();
+            
+            if (rs.next()) 
+            {
+                //nombres en la base de datos ID   DESCRIPCION
+                objReturn.setIdOb(rs.getString("ID_OB"));
+                objReturn.setFechaOb(rs.getString("FECHA_OB"));
+                objReturn.setNombreOb(rs.getString("NOMBRE_OB"));
+                objReturn.setDescripcionOb(rs.getString("DESCRIPCION_OB"));
+                objReturn.setEstadoOb(rs.getString("ESTADO_OB"));
+                objReturn.setPuntuacionOb(rs.getInt("PUNTUACION_OB"));
+                objReturn.setClaseIdClas(rs.getString("CLASE_ID_C"));
+                objReturn.setEntrenadorIdEnt(rs.getString("ENTRENADOR_ID_ENT"));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(ObjetivoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        return objReturn;
+    }
+
 }

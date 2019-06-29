@@ -5,8 +5,6 @@
  */
 package com.escuela.dao;
 
-import com.escuela.model.Entrenador;
-import com.escuela.model.Pago;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.escuela.model.Pago;
 
 /**
  *
@@ -74,6 +73,40 @@ public class PagoDao {
         }
      
         return pagoArray;
+    }
+    
+    public Pago consultarPagoId(Pago pago) 
+    {
+        Pago pagoReturn = new Pago();
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM PAGO E WHERE E.ID_PAGO = ? ");
+            sql.setString(1, pago.getIdPago());
+            
+            rs = sql.executeQuery();
+            
+            if (rs.next()) 
+            {
+                //nombres en la base de datos ID   DESCRIPCION
+                pagoReturn.setIdPago(rs.getString("ID_PAGO"));
+                pagoReturn.setPagoTotal(rs.getInt("PAGO_TOTAL"));
+                pagoReturn.setFechaPago(rs.getString("FECHA_FACTU"));
+                pagoReturn.setFechaLimPago(rs.getString("FECHA_LIMITE"));
+                pagoReturn.setEstadoPago(rs.getString("ESTADO_PAGO"));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(PagoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        return pagoReturn;
     }
     
     public void print2(List<Pago> list) 
