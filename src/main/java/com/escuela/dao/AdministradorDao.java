@@ -69,6 +69,41 @@ public class AdministradorDao {
         return adminArray;
     }
     
+    public Administrador consultarAdminId(Administrador admin) 
+    {
+        Administrador adminReturn = new Administrador();
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM ADMINISTRADOR E WHERE E.ID_AD = ? ");
+            sql.setString(1, admin.getIdAd());
+            
+            rs = sql.executeQuery();
+            
+            if (rs.next()) 
+            {
+                //nombres en la base de datos ID   DESCRIPCION
+                adminReturn.setIdAd(rs.getString("ID_AD"));
+                adminReturn.setNombreAd(rs.getString("NOMBRE_AD"));
+                adminReturn.setApellidoAd(rs.getString("APELLIDO_AD"));
+                adminReturn.setContraseñaAd(rs.getString("CONTRASENA_AD"));
+                adminReturn.setCorreo(rs.getString("CORREO_AD"));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(AdministradorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        return adminReturn;
+    }
+
+    
     public void print(List<Administrador> list)
     {
         Iterator<Administrador> iterator = list.iterator();

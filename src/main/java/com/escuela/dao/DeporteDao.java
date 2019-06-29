@@ -2,6 +2,7 @@
 package com.escuela.dao;
 
 
+import com.escuela.model.Categoria;
 import com.escuela.model.Deporte;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
@@ -69,6 +70,40 @@ public class DeporteDao
      
         return deporteArray;
     }
+    
+    public Deporte consultarDeporteId(Deporte dep) 
+    {
+        Deporte depReturn = new Deporte();
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM DEPORTE E WHERE E.ID_DEP = ? ");
+            sql.setString(1, dep.getIdDep());
+            
+            rs = sql.executeQuery();
+            
+            if (rs.next()) 
+            {
+                //nombres en la base de datos ID   DESCRIPCION
+                depReturn.setIdDep(rs.getString("ID_DEP"));
+                depReturn.setNombreDep(rs.getString("NOMBRE_DEP"));
+                depReturn.setTipoDep(rs.getString("TIPO_DEP"));
+                depReturn.setEstadoDep(rs.getString("ESTADO_DEP"));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DeporteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        return depReturn;
+    }
+
     
     public void print2(List<Deporte> list) 
     {

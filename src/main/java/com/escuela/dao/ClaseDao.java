@@ -6,6 +6,7 @@
 package com.escuela.dao;
 
 import com.escuela.model.Acudiente;
+import com.escuela.model.Categoria;
 import com.escuela.model.Clase;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
@@ -81,4 +82,39 @@ public class ClaseDao {
         return clasesArray;
     }
     
+    public Clase consultarClaseId(Clase clase) 
+    {
+        Clase claseReturn = new Clase();
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM CLASE E WHERE E.ID_C = ? ");
+            sql.setString(1, clase.getIdClas());
+            
+            rs = sql.executeQuery();
+            
+            if (rs.next()) 
+            {
+                //nombres en la base de datos ID   DESCRIPCION
+                claseReturn.setIdClas(rs.getString("ID_C"));
+                claseReturn.setFechaInicioClass(rs.getString("FECHA_INICIO"));
+                claseReturn.setFechaFinalizacionClass(rs.getString("FECHA_FINALIZACION"));
+                claseReturn.setCosto(rs.getInt("COSTO"));
+                claseReturn.setDeporteIdDep(rs.getString("DEPORTE_ID_DEP"));
+                claseReturn.setEntrenadorIdEnt(rs.getString("ENTRENADOR_ID_ENT"));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        return claseReturn;
+    }
+
 }
