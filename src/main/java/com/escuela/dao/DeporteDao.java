@@ -2,6 +2,7 @@
 package com.escuela.dao;
 
 
+import com.escuela.model.Administrador;
 import com.escuela.model.Categoria;
 import com.escuela.model.Deporte;
 import com.escuela.util.Conexion;
@@ -104,7 +105,44 @@ public class DeporteDao
         return depReturn;
     }
 
-    
+    public boolean guardarDeporte(Deporte depo) 
+    {
+        
+        int correcto= -1;
+        boolean saved=false;
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement sql = con.prepareStatement("INSERT INTO DEPORTE (id_dep, nombre_dep, tipo_dep, estado_dep) VALUES(?,?,?,?)");
+            
+            sql.setString(1,depo.getIdDep());
+            sql.setString(2,depo.getNombreDep());
+            sql.setString(3,depo.getTipoDep());
+            sql.setString(4,depo.getEstadoDep());
+            
+            correcto = sql.executeUpdate();
+            
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(DeporteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            saved = true;
+        } 
+        
+        System.out.println("saved:" + saved);
+        return saved;
+        
+    }
+        
     public void print2(List<Deporte> list) 
     {
         System.out.println("list size:" + list.size());

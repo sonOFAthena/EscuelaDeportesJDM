@@ -1,7 +1,9 @@
 
 package com.escuela.dao;
 
+import com.escuela.model.Administrador;
 import com.escuela.model.Categoria;
+import com.escuela.model.Clase;
 import com.escuela.model.Estudiante;
 import com.escuela.model.Objetivo;
 import com.escuela.util.Conexion;
@@ -112,6 +114,49 @@ public class ObjetivoDao {
         }
         
         return objReturn;
+    }
+    
+    public boolean guardarObjetivo(Objetivo objetivo) 
+    {
+        
+        int correcto= -1;
+        boolean saved=false;
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement sql = con.prepareStatement("INSERT INTO OBJETIVO (id_ob, fecha_ob, nombre_ob, descripcion_ob, estado_ob, puntuacion_ob, clase_id_c, entrenador_id_ent) "
+                                                        + "VALUES(?,TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'),?,?,?,?,?,?)");
+            
+            sql.setString(1,objetivo.getIdOb());
+            sql.setString(2,objetivo.getFechaOb());
+            sql.setString(3,objetivo.getNombreOb());
+            sql.setString(4,objetivo.getDescripcionOb());
+            sql.setString(5,objetivo.getEstadoOb());
+            sql.setInt(6,objetivo.getPuntuacionOb());
+            sql.setString(7,objetivo.getClaseIdClas());
+            sql.setString(8,objetivo.getEntrenadorIdEnt());
+            
+            correcto = sql.executeUpdate();
+            
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(ObjetivoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            saved = true;
+        } 
+        
+        System.out.println("saved:" + saved);
+        return saved;
+        
     }
 
 }

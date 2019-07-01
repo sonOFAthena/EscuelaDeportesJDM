@@ -5,19 +5,19 @@ public class Administrador {
     public String idAd;
     public String nombreAd;
     public String apellidoAd;
-    public String correo;
-    public String contraseñaAd;
+    public String correoAd;
+    public String contrasenaAd;
     
     public Administrador() {
         
     }
      
-    public Administrador(String idAd, String nombreAd, String apellidoAd, String correo, String contraseñaAd) {
+    public Administrador(String idAd, String nombreAd, String apellidoAd, String correoAd, String contraseñaAd) {
         this.idAd = idAd;
         this.nombreAd = nombreAd;
         this.apellidoAd = apellidoAd;
-        this.correo = correo;
-        this.contraseñaAd = contraseñaAd;
+        this.correoAd = correoAd;
+        this.contrasenaAd = contraseñaAd;
     }
 
     public String getIdAd() {
@@ -44,20 +44,20 @@ public class Administrador {
         this.apellidoAd = apellidoAd;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getCorreoAd() {
+        return correoAd;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCorreoAd(String correoAd) {
+        this.correoAd = correoAd;
     }
 
-    public String getContraseñaAd() {
-        return contraseñaAd;
+    public String getContrasenaAd() {
+        return contrasenaAd;
     }
 
-    public void setContraseñaAd(String contraseñaAd) {
-        this.contraseñaAd = contraseñaAd;
+    public void setContrasenaAd(String contrasenaAd) {
+        this.contrasenaAd = contrasenaAd;
     }
 
     

@@ -116,5 +116,45 @@ public class ClaseDao {
         
         return claseReturn;
     }
-
+    
+    public boolean guardarClase(Clase clase) 
+    {
+        
+        int correcto= -1;
+        boolean saved=false;
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement sql = con.prepareStatement("INSERT INTO CLASE (id_c, fecha_inicio, fecha_finalizacion, costo, deporte_id_dep, entrenador_id_ent)"
+                                                       + " VALUES(?,TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'),TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'),?,?,?)");
+            
+            sql.setString(1,clase.getIdClas());
+            sql.setString(2,clase.getFechaInicioClass());
+            sql.setString(3,clase.getFechaFinalizacionClass());
+            sql.setInt(4,clase.getCosto());
+            sql.setString(5,clase.getDeporteIdDep());
+            sql.setString(6,clase.getEntrenadorIdEnt());
+            
+            correcto = sql.executeUpdate();
+            
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(ClaseDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            saved = true;
+        } 
+        
+        System.out.println("saved:" + saved);
+        return saved;
+        
+    }
 }

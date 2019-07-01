@@ -2,7 +2,6 @@
 package com.escuela.dao;
 
 import com.escuela.model.Acudiente;
-import com.escuela.model.Categoria;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,11 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 
 public class AcudienteDao 
@@ -63,7 +57,7 @@ public class AcudienteDao
                 acudiente.setGeneroAc(rs.getString("GENERO_AC"));
                 acudiente.setRolUniAc(rs.getString("ROL_AC"));
                 acudiente.setCorreo(rs.getString("CORREO_AC"));
-                acudiente.setContraseña(rs.getString("CONTRASENA_AC"));
+                acudiente.setContrasena(rs.getString("CONTRASENA_AC"));
                 acudiente.setPagoIdpago(rs.getString("PAGO_ID_PAGO"));
                 acudiente.setEstudianteIdEst(rs.getString("ESTUDIANTE_ID_EST"));
                 
@@ -105,7 +99,7 @@ public class AcudienteDao
                 acuReturn.setGeneroAc(rs.getString("GENERO_AC"));
                 acuReturn.setRolUniAc(rs.getString("ROL_AC"));
                 acuReturn.setCorreo(rs.getString("CORREO_AC"));
-                acuReturn.setContraseña(rs.getString("CONTRASENA_AC"));
+                acuReturn.setContrasena(rs.getString("CONTRASENA_AC"));
                 acuReturn.setPagoIdpago(rs.getString("PAGO_ID_PAGO"));
                 acuReturn.setEstudianteIdEst(rs.getString("ESTUDIANTE_ID_EST"));
             }
@@ -140,7 +134,7 @@ public class AcudienteDao
             sql.setString(4,acu.getGeneroAc());
             sql.setString(5,acu.getRolUniAc());
             sql.setString(6,acu.getCorreo());
-            sql.setString(7,acu.getContraseña());
+            sql.setString(7,acu.getContrasena());
             sql.setString(8,acu.getPagoIdpago());
             sql.setString(9,acu.getEstudianteIdEst());
             
@@ -149,7 +143,7 @@ public class AcudienteDao
         } 
         catch (Exception ex) 
         {
-            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AcudienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
         {

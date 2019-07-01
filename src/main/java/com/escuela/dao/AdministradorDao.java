@@ -2,6 +2,7 @@
 package com.escuela.dao;
 
 import com.escuela.model.Administrador;
+import com.escuela.model.Categoria;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,8 +48,8 @@ public class AdministradorDao {
                     admin.setIdAd(rs.getString("ID_AD"));
                     admin.setNombreAd(rs.getString("NOMBRE_AD"));
                     admin.setApellidoAd(rs.getString("APELLIDO_AD"));
-                    admin.setCorreo(rs.getString("CORREO_AD"));
-                    admin.setContraseñaAd(rs.getString("CONTRASENA_AD"));
+                    admin.setCorreoAd(rs.getString("CORREO_AD"));
+                    admin.setContrasenaAd(rs.getString("CONTRASENA_AD"));
                     
                     adminArray.add(admin);
                 }
@@ -87,8 +88,8 @@ public class AdministradorDao {
                 adminReturn.setIdAd(rs.getString("ID_AD"));
                 adminReturn.setNombreAd(rs.getString("NOMBRE_AD"));
                 adminReturn.setApellidoAd(rs.getString("APELLIDO_AD"));
-                adminReturn.setContraseñaAd(rs.getString("CONTRASENA_AD"));
-                adminReturn.setCorreo(rs.getString("CORREO_AD"));
+                adminReturn.setContrasenaAd(rs.getString("CONTRASENA_AD"));
+                adminReturn.setCorreoAd(rs.getString("CORREO_AD"));
             }
         }
         catch (SQLException ex) 
@@ -101,6 +102,45 @@ public class AdministradorDao {
         }
         
         return adminReturn;
+    }
+    
+    public boolean guardarAdministrador(Administrador admin) 
+    {
+        
+        int correcto= -1;
+        boolean saved=false;
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement sql = con.prepareStatement("INSERT INTO ADMINISTRADOR (id_ad, nombre_ad, apellido_ad, contrasena_ad, correo_ad) VALUES(?,?,?,?,?)");
+            
+            sql.setString(1,admin.getIdAd());
+            sql.setString(2,admin.getNombreAd());
+            sql.setString(3,admin.getApellidoAd());
+            sql.setString(4,admin.getContrasenaAd());
+            sql.setString(5,admin.getCorreoAd());
+            
+            correcto = sql.executeUpdate();
+            
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(AdministradorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            saved = true;
+        } 
+        
+        System.out.println("saved:" + saved);
+        return saved;
+        
     }
 
     
@@ -123,8 +163,8 @@ public class AdministradorDao {
             System.out.printf("%-15s",list.get(i).getIdAd());
             System.out.printf("%-15s",list.get(i).getNombreAd());
             System.out.printf("%-15s",list.get(i).getApellidoAd());
-            System.out.printf("%-15s",list.get(i).getCorreo());
-            System.out.printf("\t%-15s",list.get(i).getContraseñaAd());
+            System.out.printf("%-15s",list.get(i).getCorreoAd());
+            System.out.printf("\t%-15s",list.get(i).getContrasenaAd());
             
             System.out.println("");
         }

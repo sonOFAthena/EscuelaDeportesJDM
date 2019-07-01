@@ -1,12 +1,17 @@
 
 package com.escuela.services;
 
+import com.escuela.dao.AdministradorDao;
 import com.escuela.dao.CategoriaDao;
 import com.escuela.dao.ObjetivoDao;
+import com.escuela.model.Administrador;
 import com.escuela.model.Categoria;
+import com.escuela.model.Clase;
 import com.escuela.model.Objetivo;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -50,4 +55,29 @@ public class ObjetivoService {
         }
         
     }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createObjetivo(Objetivo obj)
+    {
+        System.out.println("fase1: completada");
+        
+        boolean saved = false;
+        ObjetivoDao objdao = new ObjetivoDao();
+
+        //guardar la informacion del formulario en la BD
+        saved = objdao.guardarObjetivo(obj);
+        
+        System.out.println("fase2: completada");
+        
+        if (saved) {
+            System.out.println("final satisfactorio! :)");
+            return Response.status(Response.Status.CREATED).entity(obj).build();
+        }
+        else{
+            System.out.println("final inesperado :(");
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    } 
 }
