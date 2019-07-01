@@ -8,18 +8,18 @@ public class Acudiente {
     public String generoAc;
     public String rolUniAc;
     public String correo;
-    public String contraseña;
+    public String contrasena;
     public String estudianteIdEst;
     public String pagoIdpago;
 
-    public Acudiente(String idAc, String nombreAc, String apellidoAc, String generoAc, String rolUniAc, String correo, String contraseña, String estudianteIdEst, String pagoIdpago) {
+    public Acudiente(String idAc, String nombreAc, String apellidoAc, String generoAc, String rolUniAc, String correo, String contrasena, String estudianteIdEst, String pagoIdpago) {
         this.idAc = idAc;
         this.nombreAc = nombreAc;
         this.apellidoAc = apellidoAc;
         this.generoAc = generoAc;
         this.rolUniAc = rolUniAc;
         this.correo = correo;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.estudianteIdEst = estudianteIdEst;
         this.pagoIdpago = pagoIdpago;
     }
@@ -76,12 +76,12 @@ public class Acudiente {
         this.correo = correo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contraseña) {
+        this.contrasena = contraseña;
     }
 
     public String getEstudianteIdEst() {

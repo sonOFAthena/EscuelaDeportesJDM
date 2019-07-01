@@ -1,6 +1,7 @@
 
 package com.escuela.dao;
 
+import com.escuela.model.Administrador;
 import com.escuela.model.Categoria;
 import com.escuela.model.Deporte;
 import com.escuela.model.Entrenador;
@@ -48,7 +49,7 @@ public class EntrenadorDao {
                     entrenador.setApellidoEnt(rs.getString("APELLIDO_ENT"));
                     entrenador.setGeneroEnt(rs.getString("GENERO_ENT"));
                     entrenador.setCorreoEnt(rs.getString("CORREO_ENT"));
-                    entrenador.setContraseñaEnt(rs.getString("CONTRASENA_ENT"));
+                    entrenador.setContrasenaEnt(rs.getString("CONTRASENA_ENT"));
                     
                     entrenadorArray.add(entrenador);
                 }
@@ -80,7 +81,7 @@ public class EntrenadorDao {
             System.out.printf("%-15s",list.get(i).getApellidoEnt());
             System.out.printf("%-15s",list.get(i).getGeneroEnt());
             System.out.printf("%-15s",list.get(i).getCorreoEnt());
-            System.out.printf("%-15s",list.get(i).getContraseñaEnt());
+            System.out.printf("%-15s",list.get(i).getContrasenaEnt());
             System.out.println("");
         }
     }
@@ -105,7 +106,7 @@ public class EntrenadorDao {
                 entreReturn.setApellidoEnt(rs.getString("APELLIDO_ENT"));
                 entreReturn.setGeneroEnt(rs.getString("GENERO_ENT"));
                 entreReturn.setCorreoEnt(rs.getString("CORREO_ENT"));
-                entreReturn.setContraseñaEnt(rs.getString("CONTRASENA_ENT"));
+                entreReturn.setContrasenaEnt(rs.getString("CONTRASENA_ENT"));
             }
         }
         catch (SQLException ex) 
@@ -118,6 +119,46 @@ public class EntrenadorDao {
         }
         
         return entreReturn;
+    }
+    
+    public boolean guardarEntrenador(Entrenador entre) 
+    {
+        
+        int correcto= -1;
+        boolean saved=false;
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement sql = con.prepareStatement("INSERT INTO ENTRENADOR (id_ent, nombre_ent , apellido_ent,genero_ent, correo_ent, contrasena_ent) VALUES(?,?,?,?,?,?)");
+            
+            sql.setString(1,entre.getIdEnt());
+            sql.setString(2,entre.getNombreEnt());
+            sql.setString(3,entre.getApellidoEnt());
+            sql.setString(4,entre.getGeneroEnt());
+            sql.setString(5,entre.getCorreoEnt());
+            sql.setString(6,entre.getContrasenaEnt());
+            
+            correcto = sql.executeUpdate();
+            
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(EntrenadorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            saved = true;
+        } 
+        
+        System.out.println("saved:" + saved);
+        return saved;
+        
     }
 
 }

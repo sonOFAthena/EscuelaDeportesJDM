@@ -5,6 +5,7 @@
  */
 package com.escuela.dao;
 
+import com.escuela.model.Administrador;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -108,6 +109,46 @@ public class PagoDao {
         
         return pagoReturn;
     }
+    
+    public boolean guardarPago(Pago pago) 
+    {
+        
+        int correcto= -1;
+        boolean saved=false;
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement sql = con.prepareStatement("INSERT INTO PAGO (id_pago, pago_total, fecha_factu, fecha_limite, estado_pago) VALUES(?,?,TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'),TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'),?)");
+            
+            sql.setString(1,pago.getIdPago());
+            sql.setInt(2,pago.getPagoTotal());
+            sql.setString(3,pago.getFechaPago());
+            sql.setString(4,pago.getFechaLimPago());
+            sql.setString(5,pago.getEstadoPago());
+            
+            correcto = sql.executeUpdate();
+            
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(AdministradorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            saved = true;
+        } 
+        
+        System.out.println("saved:" + saved);
+        return saved;
+        
+    }
+
     
     public void print2(List<Pago> list) 
     {

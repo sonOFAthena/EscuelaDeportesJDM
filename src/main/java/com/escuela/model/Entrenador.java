@@ -7,15 +7,15 @@ public class Entrenador {
     public String apellidoEnt;
     public String generoEnt;
     public String correoEnt;
-    public String contraseñaEnt;
+    public String contrasenaEnt;
 
-    public Entrenador(String idEnt, String nombreEnt, String apellidoEnt, String generoEnt, String correoEnt, String contraseñaEnt) {
+    public Entrenador(String idEnt, String nombreEnt, String apellidoEnt, String generoEnt, String correoEnt, String contrasenaEnt) {
         this.idEnt = idEnt;
         this.nombreEnt = nombreEnt;
         this.apellidoEnt = apellidoEnt;
         this.generoEnt = generoEnt;
         this.correoEnt = correoEnt;
-        this.contraseñaEnt = contraseñaEnt;
+        this.contrasenaEnt = contrasenaEnt;
     }
 
     public Entrenador() {
@@ -62,12 +62,12 @@ public class Entrenador {
         this.correoEnt = correoEnt;
     }
 
-    public String getContraseñaEnt() {
-        return contraseñaEnt;
+    public String getContrasenaEnt() {
+        return contrasenaEnt;
     }
 
-    public void setContraseñaEnt(String contraseñaEnt) {
-        this.contraseñaEnt = contraseñaEnt;
+    public void setContrasenaEnt(String contraseñaEnt) {
+        this.contrasenaEnt = contraseñaEnt;
     }
     
     
