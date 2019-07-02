@@ -142,6 +142,46 @@ public class DeporteDao
         return saved;
         
     }
+    
+    public boolean actualizarDeporte(Deporte depo) 
+    {
+       
+        int correcto= -1;
+        boolean updated=false;
+        con = Conexion.getConexion();
+        
+        try
+        {
+            PreparedStatement sql;
+            
+            // Create the preparedstatement(s) to insert
+            sql = con.prepareStatement("UPDATE DEPORTE SET  NOMBRE_DEP = ?, TIPO_DEP = ?, ESTADO_DEP = ? "
+                                        + "WHERE ID_DEP = ?");
+
+            sql.setString(4,depo.getIdDep());
+            sql.setString(1,depo.getNombreDep());
+            sql.setString(2,depo.getTipoDep());
+            sql.setString(3,depo.getEstadoDep());
+            correcto = sql.executeUpdate();
+            
+            //System.out.println("\n\nempleado con doc: " + empleado.getDocumento() + " updated from database...\n\n");
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(DeporteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            updated = true;
+        } 
+
+        return updated;
+    }
         
     public void print2(List<Deporte> list) 
     {

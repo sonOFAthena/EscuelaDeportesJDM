@@ -142,7 +142,47 @@ public class AdministradorDao {
         return saved;
         
     }
+    
+    public boolean actualizarAdministrador(Administrador admin) 
+    {
+       
+        int correcto= -1;
+        boolean updated=false;
+        con = Conexion.getConexion();
+        
+        try
+        {
+            PreparedStatement sql;
+            
+            // Create the preparedstatement(s) to insert
+            sql = con.prepareStatement("UPDATE ADMINISTRADOR SET  NOMBRE_AD = ?, APELLIDO_AD = ?, CONTRASENA_AD = ?, CORREO_AD = ?"
+                                       + "WHERE ID_AD = ?");
 
+            sql.setString(5,admin.getIdAd());
+            sql.setString(1,admin.getNombreAd());
+            sql.setString(2,admin.getApellidoAd());
+            sql.setString(3,admin.getContrasenaAd());
+            sql.setString(4,admin.getCorreoAd());
+            correcto = sql.executeUpdate();
+            
+            //System.out.println("\n\nempleado con doc: " + empleado.getDocumento() + " updated from database...\n\n");
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(AdministradorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            updated = true;
+        } 
+
+        return updated;
+    }
     
     public void print(List<Administrador> list)
     {

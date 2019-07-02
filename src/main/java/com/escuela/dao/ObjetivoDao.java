@@ -158,5 +158,49 @@ public class ObjetivoDao {
         return saved;
         
     }
+    
+    public boolean actualizarObjetivo(Objetivo obj) 
+    {
+       
+        int correcto= -1;
+        boolean updated=false;
+        con = Conexion.getConexion();
+        
+        try
+        {
+            PreparedStatement sql;
+            
+            // Create the preparedstatement(s) to insert
+            sql = con.prepareStatement("UPDATE OBJETIVO SET  FECHA_OB = TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'), NOMBRE_OB = ?, DESCRIPCION_OB = ?, "
+                                        + "ESTADO_OB = ?, PUNTUACION_OB = ?, CLASE_ID_C = ?, ENTRENADOR_ID_ENT = ?"
+                                        + " WHERE ID_OB = ?");
 
+            sql.setString(8,obj.getIdOb());
+            sql.setString(1,obj.getFechaOb());
+            sql.setString(2,obj.getNombreOb());
+            sql.setString(3,obj.getDescripcionOb());
+            sql.setString(4,obj.getEstadoOb());
+            sql.setInt(5,obj.getPuntuacionOb());
+            sql.setString(6,obj.getClaseIdClas());
+            sql.setString(7,obj.getEntrenadorIdEnt());
+            correcto = sql.executeUpdate();
+            
+            //System.out.println("\n\nempleado con doc: " + empleado.getDocumento() + " updated from database...\n\n");
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(ObjetivoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            updated = true;
+        } 
+
+        return updated;
+    }
 }

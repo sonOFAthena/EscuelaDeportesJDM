@@ -6,6 +6,7 @@
 package com.escuela.dao;
 
 import com.escuela.model.Acudiente;
+import com.escuela.model.Administrador;
 import com.escuela.model.Categoria;
 import com.escuela.model.Clase;
 import com.escuela.util.Conexion;
@@ -156,5 +157,47 @@ public class ClaseDao {
         System.out.println("saved:" + saved);
         return saved;
         
+    }
+    
+    public boolean actualizarClase(Clase clase) 
+    {
+       
+        int correcto= -1;
+        boolean updated=false;
+        con = Conexion.getConexion();
+        
+        try
+        {
+            PreparedStatement sql;
+            
+            // Create the preparedstatement(s) to insert
+            sql = con.prepareStatement("UPDATE CLASE SET  FECHA_INICIO = TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'), FECHA_FINALIZACION = TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'), COSTO = ?, DEPORTE_ID_DEP = ?, ENTRENADOR_ID_ENT = ?"
+                                       + "WHERE ID_C = ?");
+
+            sql.setString(6,clase.getIdClas());
+            sql.setString(1,clase.getFechaInicioClass());
+            sql.setString(2,clase.getFechaFinalizacionClass());
+            sql.setInt(3,clase.getCosto());
+            sql.setString(4,clase.getDeporteIdDep());
+            sql.setString(5,clase.getEntrenadorIdEnt());
+            correcto = sql.executeUpdate();
+            
+            //System.out.println("\n\nempleado con doc: " + empleado.getDocumento() + " updated from database...\n\n");
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(ClaseDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            updated = true;
+        } 
+
+        return updated;
     }
 }

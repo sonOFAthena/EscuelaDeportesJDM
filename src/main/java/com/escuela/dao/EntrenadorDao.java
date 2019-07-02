@@ -160,5 +160,46 @@ public class EntrenadorDao {
         return saved;
         
     }
+    
+    public boolean actualizarEntrenador(Entrenador entre) 
+    {
+       
+        int correcto= -1;
+        boolean updated=false;
+        con = Conexion.getConexion();
+        
+        try
+        {
+            PreparedStatement sql;
+            
+            // Create the preparedstatement(s) to insert
+            sql = con.prepareStatement("UPDATE ENTRENADOR SET  NOMBRE_ENT  = ?, APELLIDO_ENT = ?, GENERO_ENT = ?, CORREO_ENT = ?, CONTRASENA_ENT = ?"
+                                       + "WHERE ID_ENT = ?");
 
+            sql.setString(6,entre.getIdEnt());
+            sql.setString(1,entre.getNombreEnt());
+            sql.setString(2,entre.getApellidoEnt());
+            sql.setString(3,entre.getGeneroEnt());
+            sql.setString(4,entre.getCorreoEnt());
+            sql.setString(5,entre.getContrasenaEnt());
+            correcto = sql.executeUpdate();
+            
+            //System.out.println("\n\nempleado con doc: " + empleado.getDocumento() + " updated from database...\n\n");
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(EntrenadorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            updated = true;
+        } 
+
+        return updated;
+    }
 }

@@ -2,6 +2,7 @@
 package com.escuela.dao;
 
 import com.escuela.model.Acudiente;
+import com.escuela.model.Administrador;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -156,5 +157,51 @@ public class AcudienteDao
         
         return saved;
         
+    }
+    
+    public boolean actualizarAcudiente(Acudiente acu) 
+    {
+       
+        int correcto= -1;
+        boolean updated=false;
+        con = Conexion.getConexion();
+        
+        try
+        {
+            PreparedStatement sql;
+            
+            // Create the preparedstatement(s) to insert
+            sql = con.prepareStatement("UPDATE ACUDIENTE SET  NOMBRE_AC = ?, APELLIDO_AC = ?, GENERO_AC = ?, "
+                                        + "ROL_AC = ?, CORREO_AC = ?, CONTRASENA_AC = ?, PAGO_ID_PAGO = ?, ESTUDIANTE_ID_EST = ? "
+                                        + "WHERE ID_AC = ?");
+
+            sql.setString(9,acu.getIdAc());
+            sql.setString(1,acu.getNombreAc());
+            sql.setString(2,acu.getApellidoAc());
+            sql.setString(3,acu.getGeneroAc());
+            sql.setString(4,acu.getRolUniAc());
+            sql.setString(5,acu.getCorreo());
+            sql.setString(6,acu.getContrasena());
+            sql.setString(7,acu.getPagoIdpago());
+            sql.setString(8,acu.getEstudianteIdEst());
+            correcto = sql.executeUpdate();
+            
+            //System.out.println("\n\nempleado con doc: " + empleado.getDocumento() + " updated from database...\n\n");
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(AcudienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            updated = true;
+        } 
+
+        return updated;
     }
 }

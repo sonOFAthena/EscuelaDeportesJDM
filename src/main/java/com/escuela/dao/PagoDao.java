@@ -149,6 +149,46 @@ public class PagoDao {
         
     }
 
+    public boolean actualizarPago(Pago pago) 
+    {
+       
+        int correcto= -1;
+        boolean updated=false;
+        con = Conexion.getConexion();
+        
+        try
+        {
+            PreparedStatement sql;
+            
+            // Create the preparedstatement(s) to insert
+            sql = con.prepareStatement("UPDATE PAGO SET  PAGO_TOTAL = ?, FECHA_FACTU = TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'), FECHA_LIMITE = TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'), ESTADO_PAGO = ?"
+                                       + "WHERE ID_PAGO = ?");
+
+            sql.setString(5,pago.getIdPago());
+            sql.setInt(1,pago.getPagoTotal());
+            sql.setString(2,pago.getFechaPago());
+            sql.setString(3,pago.getFechaLimPago());
+            sql.setString(4,pago.getEstadoPago());
+            correcto = sql.executeUpdate();
+            
+            //System.out.println("\n\nempleado con doc: " + empleado.getDocumento() + " updated from database...\n\n");
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(PagoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            updated = true;
+        } 
+
+        return updated;
+    }
     
     public void print2(List<Pago> list) 
     {
