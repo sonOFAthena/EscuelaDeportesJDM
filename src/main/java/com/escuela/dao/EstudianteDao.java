@@ -5,6 +5,7 @@
  */
 package com.escuela.dao;
 
+import com.escuela.model.Administrador;
 import com.escuela.model.Clase;
 import com.escuela.model.Estudiante;
 import com.escuela.util.Conexion;
@@ -153,6 +154,48 @@ public class EstudianteDao {
         } 
         
         return saved;
+    }
+    
+    public boolean actualizarEstudiante(Estudiante estudiante) 
+    {
+        int correcto= -1;
+        boolean updated=false;
+        con = Conexion.getConexion();
+        
+        try
+        {
+            PreparedStatement sql;
+            
+            // Create the preparedstatement(s) to insert
+            sql = con.prepareStatement("UPDATE ESTUDIANTE SET  NOMBRE_EST = ?, APELLIDO_EST = ?, GENERO_EST = ?, FECHA_NACIMIENTO_EST = TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'), ESTADO_EST = ?, CLASE_ID_C = ?"
+                                       + "WHERE ID_EST = ?");
+
+            sql.setString(7,estudiante.getIdEst());
+            sql.setString(1,estudiante.getNombreEst());
+            sql.setString(2,estudiante.getApellidoEst());
+            sql.setString(3,estudiante.getGeneroEst());
+            sql.setString(4,estudiante.getFechaNacimientoEst());
+            sql.setString(5,estudiante.getEstadoEst());
+            sql.setString(6,estudiante.getClaseIdClas());
+            correcto = sql.executeUpdate();
+            
+            //System.out.println("\n\nempleado con doc: " + empleado.getDocumento() + " updated from database...\n\n");
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            updated = true;
+        } 
+
+        return updated;
     }
     
 }
