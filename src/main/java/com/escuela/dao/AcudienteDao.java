@@ -3,6 +3,7 @@ package com.escuela.dao;
 
 import com.escuela.model.Acudiente;
 import com.escuela.model.Administrador;
+import com.escuela.model.Categoria;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -203,5 +204,41 @@ public class AcudienteDao
         } 
 
         return updated;
+    }
+    
+    public boolean borrarAcudiente(Acudiente acu)
+    {
+        int correcto= -1;
+        boolean deleted=false;
+        
+        try
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement insertPaquete;
+            
+            // Create the preparedstatement(s) to insert
+            insertPaquete = con.prepareStatement("DELETE FROM ACUDIENTE WHERE ID_AC = ?");
+            insertPaquete.setString(1, acu.getIdAc());
+            correcto = insertPaquete.executeUpdate();
+            
+            acudienteArray.remove(acu);
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(AcudienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Variable no se puede borrar porque es la Foreigh Key de otra tabla");
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            deleted = true;
+        } 
+        
+        return deleted;
     }
 }

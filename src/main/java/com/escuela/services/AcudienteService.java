@@ -3,11 +3,13 @@ package com.escuela.services;
 
 import com.escuela.dao.AcudienteDao;
 import com.escuela.dao.AdministradorDao;
+import com.escuela.dao.CategoriaDao;
 import com.escuela.model.Acudiente;
 import com.escuela.model.Administrador;
 import com.escuela.model.Categoria;
 import java.util.List;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -94,6 +96,36 @@ public class AcudienteService {
         }
         else{
             System.out.println("final inesperado :(");
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteAcudiente(@PathParam("id") String id)
+    {
+        System.out.println("delete fase1: completada");
+        
+        boolean deleted = false;
+        AcudienteDao acuDao = new AcudienteDao();
+       
+        // Objeto a consultar para actualizar
+        Acudiente acuConsulta = new Acudiente();
+        acuConsulta.setIdAc(id);
+
+        //Objeto retornado para la consulta en la BD
+        Acudiente acuRetorno = acuDao.consultarAcudienteId(acuConsulta);
+
+        //eliminar el Objeto en cuestion
+        deleted = acuDao.borrarAcudiente(acuRetorno);
+        
+        System.out.println("delete fase2: completada");
+        
+        if (deleted) {
+            return Response.status(Response.Status.OK).entity(acuRetorno).build();
+        }
+        else{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

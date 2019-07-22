@@ -8,6 +8,7 @@ package com.escuela.dao;
 import com.escuela.model.Administrador;
 import com.escuela.model.Clase;
 import com.escuela.model.Estudiante;
+import com.escuela.model2.Est_dep;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -198,4 +199,40 @@ public class EstudianteDao {
         return updated;
     }
     
+    public Est_dep listarEstudianteConDeporte(Est_dep est) 
+    {
+        Est_dep estReturn = new Est_dep();
+        
+        try 
+        {
+            con = Conexion.getConexion();
+            PreparedStatement sql = con.prepareStatement("SELECT Id_est, Nombre_est, Apellido_est, Nombre_dep "
+                                                        + "FROM Estudiante  "
+                                                        + "inner join Clase on Clase_Id_C = Id_c "
+                                                        + "inner join Deporte on Deporte_id_dep = id_dep "
+                                                        + "WHERE id_est = ?");
+            sql.setString(1, est.getIdEst());
+            
+            rs = sql.executeQuery();
+            
+            if (rs.next()) 
+            {
+                estReturn.setIdEst(rs.getString("ID_EST"));
+                estReturn.setNombreEst(rs.getString("NOMBRE_EST"));
+                estReturn.setApellidoEst(rs.getString("APELLIDO_EST"));
+                estReturn.setNombreDep("NOMBRE_DEP");
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        return estReturn;
+    }
+
 }

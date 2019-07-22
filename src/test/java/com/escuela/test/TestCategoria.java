@@ -22,5 +22,8 @@ public class TestCategoria
         
         cateArray = cate.getCategorias();
         cate.print2(cateArray);
+        
+        //borrar un dato
+        cate.borrarCategoria(categoria);
     }
 }

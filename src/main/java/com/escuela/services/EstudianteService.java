@@ -7,6 +7,7 @@ import com.escuela.dao.EstudianteDao;
 import com.escuela.model.Administrador;
 import com.escuela.model.Categoria;
 import com.escuela.model.Estudiante;
+import com.escuela.model2.Est_dep;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -98,5 +99,30 @@ public class EstudianteService {
             System.out.println("final inesperado :(");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+    
+    @GET
+    @Path("/dep/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarEst_dep(@PathParam("id") String id)
+    {
+        EstudianteDao estdao = new EstudianteDao();
+        
+        // Objeto a consultar para actualizar
+        Est_dep  estConsulta = new Est_dep ();
+        estConsulta.setIdEst(id);
+
+        //Objeto retornado de la consulta en la BD
+        Est_dep  estRetorno = estdao.listarEstudianteConDeporte(estConsulta);
+
+       // return "Id: " + catRetorno.getId() + "\nDescripcion: " + catRetorno.getDescripcion();
+        if (estRetorno.getIdEst() != null) 
+        {
+            return Response.ok(estRetorno).build();
+        }
+        else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        
     }
 }
