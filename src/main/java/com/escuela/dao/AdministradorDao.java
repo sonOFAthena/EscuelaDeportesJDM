@@ -2,7 +2,6 @@
 package com.escuela.dao;
 
 import com.escuela.model.Administrador;
-import com.escuela.model.Categoria;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -208,5 +207,41 @@ public class AdministradorDao {
             
             System.out.println("");
         }
+    }
+    
+    public boolean borrarAdministrador(Administrador admin)
+    {
+        int correcto= -1;
+        boolean deleted=false;
+        
+        try
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement insertPaquete;
+            
+            // Create the preparedstatement(s) to insert
+            insertPaquete = con.prepareStatement("DELETE FROM ADMINISTRADOR WHERE ID_AD = ?");
+            insertPaquete.setString(1, admin.getIdAd());
+            correcto = insertPaquete.executeUpdate();
+            
+            adminArray.remove(admin);
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(AdministradorDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Variable no se puede borrar porque es la Foreigh Key de otra tabla");
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            deleted = true;
+        } 
+        
+        return deleted;
     }
 }

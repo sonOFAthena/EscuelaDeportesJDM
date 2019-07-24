@@ -1,15 +1,11 @@
 
 package com.escuela.services;
 
-import com.escuela.dao.AdministradorDao;
-import com.escuela.dao.CategoriaDao;
 import com.escuela.dao.ObjetivoDao;
-import com.escuela.model.Administrador;
-import com.escuela.model.Categoria;
-import com.escuela.model.Clase;
 import com.escuela.model.Objetivo;
 import java.util.List;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -103,6 +99,36 @@ public class ObjetivoService {
         }
         else{
             System.out.println("final inesperado :(");
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteObjetivo(@PathParam("id") String id)
+    {
+        System.out.println("delete fase1: completada");
+        
+        boolean deleted = false;
+        ObjetivoDao objDao = new ObjetivoDao();
+       
+        // Objeto a consultar para actualizar
+        Objetivo objConsulta = new Objetivo();
+        objConsulta.setIdOb(id);
+
+        //Objeto retornado para la consulta en la BD
+        Objetivo objRetorno =  objDao.consultarObjetivoId(objConsulta);
+
+        //eliminar el Objeto en cuestion
+        deleted = objDao.borrarObjetivo(objRetorno);
+        
+        System.out.println("delete fase2: completada");
+        
+        if (deleted) {
+            return Response.status(Response.Status.OK).entity(objRetorno).build();
+        }
+        else{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

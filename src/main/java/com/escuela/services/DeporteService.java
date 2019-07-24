@@ -1,14 +1,11 @@
 
 package com.escuela.services;
 
-import com.escuela.dao.AdministradorDao;
-import com.escuela.dao.CategoriaDao;
 import com.escuela.dao.DeporteDao;
-import com.escuela.model.Administrador;
-import com.escuela.model.Categoria;
 import com.escuela.model.Deporte;
 import java.util.List;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -101,6 +98,36 @@ public class DeporteService {
         }
         else{
             System.out.println("final inesperado :(");
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteDeporte(@PathParam("id") String id)
+    {
+        System.out.println("delete fase1: completada");
+        
+        boolean deleted = false;
+        DeporteDao depDao = new DeporteDao();
+       
+        // Objeto a consultar para actualizar
+        Deporte depConsulta = new Deporte();
+        depConsulta.setIdDep(id);
+
+        //Objeto retornado para la consulta en la BD
+        Deporte depRetorno =  depDao.consultarDeporteId(depConsulta);
+
+        //eliminar el Objeto en cuestion
+        deleted = depDao.borrarDeporte(depRetorno);
+        
+        System.out.println("delete fase2: completada");
+        
+        if (deleted) {
+            return Response.status(Response.Status.OK).entity(depRetorno).build();
+        }
+        else{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

@@ -1,15 +1,12 @@
 
 package com.escuela.services;
 
-import com.escuela.dao.AdministradorDao;
-import com.escuela.dao.CategoriaDao;
 import com.escuela.dao.EstudianteDao;
-import com.escuela.model.Administrador;
-import com.escuela.model.Categoria;
 import com.escuela.model.Estudiante;
 import com.escuela.model2.Est_dep;
 import java.util.List;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -124,5 +121,35 @@ public class EstudianteService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteEstudiante(@PathParam("id") String id)
+    {
+        System.out.println("delete fase1: completada");
+        
+        boolean deleted = false;
+        EstudianteDao estDao = new EstudianteDao();
+       
+        // Objeto a consultar para actualizar
+        Estudiante estConsulta = new Estudiante();
+        estConsulta.setIdEst(id);
+
+        //Objeto retornado para la consulta en la BD
+        Estudiante estRetorno =  estDao.consultarEstudianteId(estConsulta);
+
+        //eliminar el Objeto en cuestion
+        deleted = estDao.borrarEstudiante(estRetorno);
+        
+        System.out.println("delete fase2: completada");
+        
+        if (deleted) {
+            return Response.status(Response.Status.OK).entity(estRetorno).build();
+        }
+        else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 }

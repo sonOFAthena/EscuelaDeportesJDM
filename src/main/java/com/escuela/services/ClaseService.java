@@ -1,14 +1,11 @@
 
 package com.escuela.services;
 
-import com.escuela.dao.AdministradorDao;
-import com.escuela.dao.CategoriaDao;
 import com.escuela.dao.ClaseDao;
-import com.escuela.model.Administrador;
-import com.escuela.model.Categoria;
 import com.escuela.model.Clase;
 import java.util.List;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -102,6 +99,36 @@ public class ClaseService {
         }
         else{
             System.out.println("final inesperado :(");
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteClase(@PathParam("id") String id)
+    {
+        System.out.println("delete fase1: completada");
+        
+        boolean deleted = false;
+        ClaseDao claseDao = new ClaseDao();
+       
+        // Objeto a consultar para actualizar
+        Clase claseConsulta = new Clase();
+        claseConsulta.setIdClas(id);
+
+        //Objeto retornado para la consulta en la BD
+        Clase claseRetorno =  claseDao.consultarClaseId(claseConsulta);
+
+        //eliminar el Objeto en cuestion
+        deleted = claseDao.borrarClase(claseRetorno);
+        
+        System.out.println("delete fase2: completada");
+        
+        if (deleted) {
+            return Response.status(Response.Status.OK).entity(claseRetorno).build();
+        }
+        else{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

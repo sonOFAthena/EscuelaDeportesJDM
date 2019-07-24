@@ -5,7 +5,6 @@
  */
 package com.escuela.dao;
 
-import com.escuela.model.Administrador;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -205,4 +204,40 @@ public class PagoDao {
             System.out.println("");
         }
     }  
+    
+    public boolean borrarPago(Pago pago)
+    {
+        int correcto= -1;
+        boolean deleted=false;
+        
+        try
+        {
+            con = Conexion.getConexion();
+            
+            PreparedStatement insertPaquete;
+            
+            // Create the preparedstatement(s) to insert
+            insertPaquete = con.prepareStatement("DELETE FROM PAGO WHERE ID_PAGO = ?");
+            insertPaquete.setString(1, pago.getIdPago());
+            correcto = insertPaquete.executeUpdate();
+            
+            pagoArray.remove(pago);
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(PagoDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Variable no se puede borrar porque es la Foreigh Key de otra tabla");
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        if (correcto != 0) {
+            deleted = true;
+        } 
+        
+        return deleted;
+    }
 }

@@ -2,8 +2,6 @@
 package com.escuela.dao;
 
 import com.escuela.model.Acudiente;
-import com.escuela.model.Administrador;
-import com.escuela.model.Categoria;
 import com.escuela.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

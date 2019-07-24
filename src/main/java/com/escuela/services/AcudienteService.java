@@ -2,11 +2,7 @@
 package com.escuela.services;
 
 import com.escuela.dao.AcudienteDao;
-import com.escuela.dao.AdministradorDao;
-import com.escuela.dao.CategoriaDao;
 import com.escuela.model.Acudiente;
-import com.escuela.model.Administrador;
-import com.escuela.model.Categoria;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
