@@ -9,18 +9,18 @@ Software para una escuela de deportes
 ```
 GET 	http://localhost:9091/EscuelaDeportesJDM/rest/estudiantes/dep/1036722230 :     
         @GET
-		@Path("/dep/{id}")
-		@Produces(MediaType.APPLICATION_JSON)
+	@Path("/dep/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
         Return: Retorna el deporte al que pertenece el estudiante con el id "1036722230"
         
-		ej:
+	ej:
         [
             {
-				"apellidoEst":"LONDOÑO ARIAS",
-				"idEst":"1036722230",
-				"nombreDep":"NOMBRE_DEP",
-				"nombreEst":"MAURICIO"
-			}
+		"apellidoEst":"LONDOÑO ARIAS",
+		"idEst":"1036722230",
+		"nombreDep":"NOMBRE_DEP",
+		"nombreEst":"MAURICIO"
+	    }
         ]
 ``` 
        
@@ -28,24 +28,24 @@ GET 	http://localhost:9091/EscuelaDeportesJDM/rest/estudiantes/dep/1036722230 :
 ```
 GET 	http://localhost:9091/EscuelaDeportesJDM/rest/estudiantes/dep/todo/natacion :     
         @GET
-		@Path("/dep/todo/{depname}")
-		@Produces(MediaType.APPLICATION_JSON)
+	@Path("/dep/todo/{depname}")
+	@Produces(MediaType.APPLICATION_JSON)
         Return: Retorna el deporte al que pertenece el estudiante con el id "1036722230"
         
-		ej:
+	ej:
         [
             {
-				"apellidoEst":"AGUDELO ROJAS",
-				"idEst":"1136722230",
-				"nombreDep":"NOMBRE_DEP",
-				"nombreEst":"ANA MARIA"
-			},
-			{
-				"apellidoEst":"LOPEZ ARIAS",
-				"idEst":"1022226930",
-				"nombreDep":"NOMBRE_DEP",
-				"nombreEst":"SERGIO"
-			}
+		"apellidoEst":"AGUDELO ROJAS",
+		"idEst":"1136722230",
+		"nombreDep":"NOMBRE_DEP",
+		"nombreEst":"ANA MARIA"
+	    },
+	    {
+		"apellidoEst":"LOPEZ ARIAS",
+		"idEst":"1022226930",
+		"nombreDep":"NOMBRE_DEP",
+		"nombreEst":"SERGIO"
+	    }
         ]
 ``` 
 
