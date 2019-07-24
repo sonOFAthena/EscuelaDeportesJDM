@@ -218,7 +218,7 @@ public class EstudianteDao {
                 estReturn.setIdEst(rs.getString("ID_EST"));
                 estReturn.setNombreEst(rs.getString("NOMBRE_EST"));
                 estReturn.setApellidoEst(rs.getString("APELLIDO_EST"));
-                estReturn.setNombreDep("NOMBRE_DEP");
+                estReturn.setNombreDep(rs.getString("NOMBRE_DEP"));
             }
         }
         catch (SQLException ex) 
@@ -294,7 +294,7 @@ public class EstudianteDao {
                 estudianteDep.setIdEst(rs.getString("ID_EST"));
                 estudianteDep.setNombreEst(rs.getString("NOMBRE_EST"));
                 estudianteDep.setApellidoEst(rs.getString("APELLIDO_EST"));
-                estudianteDep.setNombreDep("NOMBRE_DEP");
+                estudianteDep.setNombreDep(rs.getString("NOMBRE_DEP"));
                 
                 estudiantesDepArray.add(estudianteDep);
             }

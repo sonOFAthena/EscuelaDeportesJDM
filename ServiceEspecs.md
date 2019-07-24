@@ -18,7 +18,7 @@ GET 	http://localhost:9091/EscuelaDeportesJDM/rest/estudiantes/dep/1036722230 :
             {
 		"apellidoEst":"LONDOÑO ARIAS",
 		"idEst":"1036722230",
-		"nombreDep":"NOMBRE_DEP",
+		"nombreDep":"NATACION",
 		"nombreEst":"MAURICIO"
 	    }
         ]
@@ -37,13 +37,13 @@ GET 	http://localhost:9091/EscuelaDeportesJDM/rest/estudiantes/dep/todo/natacion
             {
 		"apellidoEst":"AGUDELO ROJAS",
 		"idEst":"1136722230",
-		"nombreDep":"NOMBRE_DEP",
+		"nombreDep":"NATACION",
 		"nombreEst":"ANA MARIA"
 	    },
 	    {
 		"apellidoEst":"LOPEZ ARIAS",
 		"idEst":"1022226930",
-		"nombreDep":"NOMBRE_DEP",
+		"nombreDep":"NATACION",
 		"nombreEst":"SERGIO"
 	    }
         ]
