@@ -123,6 +123,23 @@ public class EstudianteService {
         
     }
     
+    @GET
+    @Path("/dep/todo/{depname}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarTodos_Est_dep(@PathParam("depname") String depname)
+    {
+        System.out.println("fase1: completada");
+        
+        depname = depname.toUpperCase();
+        EstudianteDao estdao = new EstudianteDao();
+        List<Est_dep> estudiantesDep = estdao.listarTodosEstudDep(depname);
+
+        System.out.println("fase2: completada");
+        
+        return Response.ok(estudiantesDep).build();
+        
+    }
+    
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)

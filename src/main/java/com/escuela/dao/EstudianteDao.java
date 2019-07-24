@@ -268,4 +268,48 @@ public class EstudianteDao {
         
         return deleted;
     }
+
+    public List<Est_dep> listarTodosEstudDep(String depname) 
+    {
+        List<Est_dep> estudiantesDepArray = new ArrayList<>();
+        
+        try 
+        {
+            // Algoritmo para interactuar con la BD (PASOS)
+            //1. abrir conexion
+            con = Conexion.getConexion();
+            
+            //2. Generar consulta
+            PreparedStatement sql = con.prepareStatement("SELECT Id_est, Nombre_est, Apellido_est, Nombre_dep From Estudiante "
+                                                        + "inner join Clase on Clase_Id_C = Id_c "
+                                                        + "inner join Deporte on Deporte_id_dep = id_dep "
+                                                        + "WHERE Nombre_dep = ?");
+            sql.setString(1, depname);
+            rs = sql.executeQuery();
+            
+            //3. Procesar informacion
+            while(rs.next())
+            {
+                Est_dep estudianteDep = new Est_dep();
+                estudianteDep.setIdEst(rs.getString("ID_EST"));
+                estudianteDep.setNombreEst(rs.getString("NOMBRE_EST"));
+                estudianteDep.setApellidoEst(rs.getString("APELLIDO_EST"));
+                estudianteDep.setNombreDep("NOMBRE_DEP");
+                
+                estudiantesDepArray.add(estudianteDep);
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(EstudianteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        //4. retornar informacion
+        
+        return estudiantesDepArray;
+    }
 }
