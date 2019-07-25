@@ -233,4 +233,47 @@ public class ClaseDao {
         
         return deleted;
     }
+
+    public List<Clase> listarTodasClasesDep(String depname) 
+    {
+        List<Clase> clasesDepArray = new ArrayList<>();
+        
+        try 
+        {
+            // Algoritmo para interactuar con la BD (PASOS)
+            //1. abrir conexion
+            con = Conexion.getConexion();
+            
+            //2. Generar consulta
+            PreparedStatement sql = con.prepareStatement("SELECT * From Clase inner join Deporte on deporte_id_dep = id_dep WHERE Nombre_dep = ?");
+            sql.setString(1, depname);
+            rs = sql.executeQuery();
+            
+            //3. Procesar informacion
+            while(rs.next())
+            {
+                Clase clase = new Clase();
+                clase.setIdClas(rs.getString("ID_C"));
+                clase.setFechaInicioClass(rs.getString("FECHA_INICIO"));
+                clase.setFechaFinalizacionClass(rs.getString("FECHA_FINALIZACION"));
+                clase.setCosto(rs.getInt("COSTO"));
+                clase.setDeporteIdDep(rs.getString("DEPORTE_ID_DEP"));
+                clase.setEntrenadorIdEnt(rs.getString("ENTRENADOR_ID_ENT"));
+                
+                clasesDepArray.add(clase);
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(ClaseDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            Conexion.cerrarConexion(con);
+        }
+        
+        //4. retornar informacion
+        
+        return clasesDepArray;
+    }
 }

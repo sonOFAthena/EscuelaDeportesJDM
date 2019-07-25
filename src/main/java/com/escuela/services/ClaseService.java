@@ -132,4 +132,21 @@ public class ClaseService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
+    
+    @GET
+    @Path("/dep/todo/{depname}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarTodas_Clases_dep(@PathParam("depname") String depname)
+    {
+        System.out.println("fase1: completada");
+        
+        depname = depname.toUpperCase();
+        ClaseDao clasedao = new ClaseDao();
+        List<Clase> clasesDep=  clasedao.listarTodasClasesDep(depname);
+
+        System.out.println("fase2: completada");
+        
+        return Response.ok(clasesDep).build();
+        
+    }
 }
