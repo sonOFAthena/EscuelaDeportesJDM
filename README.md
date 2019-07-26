@@ -100,9 +100,11 @@ DELETE localhost:port/EscuelaDeportesJDM/rest/categorias/{id} : Delete categoria
 ## HERRAMIENTAS UTILIZADAS
 
 * **SERVER**: GLASSFISH5
-* **IDE**: NetBeans IDE 8.2 (Build 201609300101)
-* **DATABASE**: ORACLE 11g
+* **IDE**: Apache NetBeans IDE 11
 * **MANEJO DE DEPENDENCIAS**: Apache-Maven-3.6.1
+* **CLIENTE HTTP**: Firefox 68.0.1 
+* **RESTFULL SERVICE TEST**: Soap IU 5.5.0
+* **DATABASE**: ORACLE 11g
 
 ## AUTORES
 
