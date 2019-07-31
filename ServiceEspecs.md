@@ -77,3 +77,14 @@ GET 	http://localhost:9091/EscuelaDeportesJDM/rest/clases/dep/todo/natacion :
         ]
 ``` 
 
+## EJEMPLO SERVICIO exportarEstudiante: exporta todos los estudiantes registrados en la DB
+```
+GET 	http://localhost:9091/EscuelaDeportesJDM/rest/estudiantes/export :     
+        @GET
+		@Path("/export")
+		@Produces(MediaType.TEXT_PLAIN)
+        Return: Retorna un mensaje si la operacion fue realizada correctamente.
+        
+	ej:
+        "datos exportados correctamente!"
+``` 

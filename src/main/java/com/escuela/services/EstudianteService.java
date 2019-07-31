@@ -4,6 +4,7 @@ package com.escuela.services;
 import com.escuela.dao.EstudianteDao;
 import com.escuela.model.Estudiante;
 import com.escuela.model2.Est_dep;
+import com.escuela.util.ExportExcelFromOracle;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -168,5 +169,23 @@ public class EstudianteService {
         else{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+    
+    @GET
+    @Path("/export")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response exportEstudiante() throws InterruptedException
+    {
+        try
+        {
+            ExportExcelFromOracle eeo = new ExportExcelFromOracle();
+            eeo.ExportDataEstudiante();
+        }
+        catch(Exception e)
+        {
+            System.out.println("error:" + e);
+        }
+        
+        return Response.ok("datos exportados correctamente!").build();
     }
 }
